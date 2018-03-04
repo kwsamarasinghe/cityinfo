@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cityinfoconfig>
+  <server port='5500'/>
+  <dataagents>
+    <agent name='exchangeRateAgent' url='https://api.fixer.io/latest'>
+      <parameter name='base' value='GBP'/>
+    </agent>
+  </dataagents>
+</cityinfoconfig>
