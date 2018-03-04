@@ -4,6 +4,7 @@ class ServerContext:
 
     def __init__(self, configFile):
         #Reads from config file
+        print "Loading config file at "+configFile
         configXML = XMLParser.parse(configFile)
         root = configXML.getroot()
 
@@ -33,8 +34,8 @@ class ServerContext:
                 _parameter['value'] = value
                 parameters.append(_parameter)
 
-            dataAgent['paramters'] = parameters
-            self._dataAgents.append(dataAgent)    
+            dataAgent['parameters'] = parameters
+            self._dataAgents.append(dataAgent)
 
     @property
     def serverParameters(self):
@@ -42,4 +43,4 @@ class ServerContext:
 
     @property
     def dataAgents(self):
-        return self.dataAgents
+        return self._dataAgents
