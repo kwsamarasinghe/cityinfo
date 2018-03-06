@@ -7,6 +7,7 @@ class ServerContext:
         print "Loading config file at "+configFile
         configXML = XMLParser.parse(configFile)
         root = configXML.getroot()
+        self._cityName = root.attrib['city_name']
 
         #Reads server port
         self._serverParameters = {}
@@ -40,6 +41,10 @@ class ServerContext:
     @property
     def serverParameters(self):
         return self._serverParameters
+
+    @property
+    def cityName(self):
+        return self._cityName
 
     @property
     def dataAgents(self):

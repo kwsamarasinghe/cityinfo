@@ -1,3 +1,5 @@
+import urllib
+
 from multiprocessing import Pool
 
 from dataagents.exchange_rate_agent import ExchangeRateAgent
@@ -48,7 +50,10 @@ class Engine:
         infoResponse = []
         for agent in self.dataAgents:
             agentResponse = agent.fetchData()
-            infoResponse.append(agentResponse)
+            if(agentResponse):
+                infoResponse.append(agentResponse)
+            else:
+                return None
         return infoResponse
 
     #returns the updates

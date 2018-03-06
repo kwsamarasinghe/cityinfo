@@ -17,28 +17,32 @@ class NEWSAgent:
         self.connection = httplib.HTTPConnection(self.parsedURL.netloc)
 
     def fetchData(self):
-        url = self.parsedURL.path+'?'+self.parsedURL.query
-        self.connection.request("GET", url)
-        response = self.connection.getresponse()
-        if(response.status == 200):
-            responseData = json.loads(response.read())
-            status = responseData['status']
-            print status
-            if(status == 'ok'):
-                articles = responseData['articles']
-                newsArticles = []
-                for article in articles:
-                    newsArticle = {}
-                    newsArticle['name']=article['source']['name']
-                    newsArticle['title']=article['title']
-                    newsArticle['articleURL']=article['url']
-                    newsArticles.append(newsArticle)
+        try:
+            url = self.parsedURL.path+'?'+self.parsedURL.query
+            self.connection.request("GET", url)
+            response = self.connection.getresponse()
+            if(response.status == 200):
+                responseData = json.loads(response.read())
+                status = responseData['status']
+                if(status == 'ok'):
+                    articles = responseData['articles']
+                    newsArticles = []
+                    for article in articles:
+                        newsArticle = {}
+                        newsArticle['name']=article['source']['name']
+                        newsArticle['title']=article['title']
+                        newsArticle['articleURL']=article['url']
+                        newsArticles.append(newsArticle)
 
-                agentResponse = AgentResponse('news', self.url, newsArticles)
-                return agentResponse
+                    agentResponse = AgentResponse('news', self.url, newsArticles)
+                    print agentResponse
+                    return agentResponse
+                else:
+                    return None
             else:
                 return None
-        else:
+        except Exception as e:
+            print "Error retrieving data from  "+self.parsedURL.netloc + self.parsedURL.path
             return None
 
 DataAgent.register(NEWSAgent)

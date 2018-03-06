@@ -17,21 +17,25 @@ class WeatherAgent:
         self.connection = httplib.HTTPConnection(self.parsedURL.netloc)
 
     def fetchData(self):
-        self.connection.request("GET", self.parsedURL.path+'?'+self.parsedURL.query)
-        response = self.connection.getresponse()
-        if(response.status == 200):
-            responseData =json.loads(response.read())
-            cityName = responseData['location']['name']
-            date = responseData['location']['localtime']
-            metrics = responseData['current']
+        try:
+            self.connection.request("GET", self.parsedURL.path+'?'+self.parsedURL.query)
+            response = self.connection.getresponse()
+            if(response.status == 200):
+                responseData =json.loads(response.read())
+                cityName = responseData['location']['name']
+                date = responseData['location']['localtime']
+                metrics = responseData['current']
 
-            weatherData = {}
-            weatherData['city'] = cityName
-            weatherData['date'] = date
-            weatherData['metrics'] = metrics
-            agentResponse = AgentResponse('weather', self.url, weatherData)
-            return agentResponse
-        else:
+                weatherData = {}
+                weatherData['city'] = cityName
+                weatherData['date'] = date
+                weatherData['metrics'] = metrics
+                agentResponse = AgentResponse('weather', self.url, weatherData)
+                return agentResponse
+            else:
+                return None
+        except Exception as e:
+            print "Error retrieving data from  "+self.parsedURL.netloc + self.parsedURL.path
             return None
 
 DataAgent.register(WeatherAgent)

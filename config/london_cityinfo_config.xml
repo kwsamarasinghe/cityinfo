@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cityinfoconfig city_name="London">
+  <server port='5500'/>
+  <dataagents>
+    <agent name='exchangeRateAgent' url='https://api.fixer.io/latest'>
+      <parameter name='base' value='USD'/>
+    </agent>
+    <agent name='weatherAgent' url='http://api.apixu.com/v1/current.json'>
+      <parameter name='key' value='a94441e907c44144a6002524180403'/>
+      <parameter name='q' value='London'/>
+    </agent>
+    <agent name='newsAgent' url='https://newsapi.org/v2/top-headlines'>
+      <parameter name='q' value='London'/>
+      <parameter name='apiKey' value='90d620d913f74e1b8d8bf7d4a5426ad6'/>
+    </agent>
+  </dataagents>
+</cityinfoconfig>

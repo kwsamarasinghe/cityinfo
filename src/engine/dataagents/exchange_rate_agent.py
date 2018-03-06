@@ -15,25 +15,36 @@ class ExchangeRateAgent:
         self.url = url
         self.parsedURL = urlparse(url)
         self.connection = httplib.HTTPConnection(self.parsedURL.netloc)
+        self.currencies = ['EUR', 'CHF', 'USD', 'GBP']
 
     def fetchData(self):
-        url = self.parsedURL.path+'?'+self.parsedURL.query
-        self.connection.request("GET", url)
-        response = self.connection.getresponse()
-        if(response.status == 200):
-            #Only reads few currencies, for the moment USD, CHF, EUR
-            responseData =json.loads(response.read())
-            date = responseData['date']
-            eur = responseData['rates']['EUR']
-            usd = responseData['rates']['USD']
-            chf = responseData['rates']['CHF']
+        #try:
+            url = self.parsedURL.path+'?'+self.parsedURL.query
+            self.connection.request("GET", url)
+            response = self.connection.getresponse()
+            if(response.status == 200):
+                #Only reads few currencies, for the moment USD, CHF, EUR
+                responseData =json.loads(response.read())
+                date = responseData['date']
 
-            forexData = {}
-            forexData['date'] = date
-            forexData['currencies'] = {'EUR':eur, 'USD':usd,'CHF':chf}
-            agentResponse = AgentResponse('forex', self.url, forexData)
-            return agentResponse
-        else:
-            return None
+                #Retrives the currencies
+                baseCurrency = self.parsedURL.query.split('=')[1]
+                exchangeRates = {}
+                for currency in self.currencies:
+                    if currency != baseCurrency:
+                        exchangeRates[currency] = responseData['rates'][currency]
+
+                print exchangeRates
+
+                forexData = {}
+                forexData['date'] = date
+                forexData['currencies'] = exchangeRates
+                agentResponse = AgentResponse('forex', self.url, forexData)
+                return agentResponse
+            else:
+                return None
+        #except Exception as e:
+        #    print "Error retrieving data from  "+self.parsedURL.netloc + self.parsedURL.path
+        #    return None
 
 DataAgent.register(ExchangeRateAgent)

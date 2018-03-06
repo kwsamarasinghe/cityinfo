@@ -30,6 +30,10 @@ class Server:
     def serverPort(self):
         return self._serverPort
 
+    @property
+    def cityName(self):
+        return self.serverContext.cityName
+
     def getEngine(self):
         self.engine = Engine(self._dataAgentsProperties)
         return self.engine
