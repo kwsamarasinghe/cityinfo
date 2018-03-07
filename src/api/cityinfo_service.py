@@ -4,6 +4,9 @@ from flask.ext.jsonpify import jsonify
 
 from info_controller import InfoController as infoController
 
+'''
+REST interface based on FLASK, which adds the primary resource /getinfo
+'''
 class CityInfoService:
 
     def __init__(self, server):

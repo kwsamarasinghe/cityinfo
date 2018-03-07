@@ -3,11 +3,17 @@ from flask.ext.jsonpify import jsonify
 
 import json
 
+'''
+Info controller which handles the API requests
+'''
 class InfoController(Resource):
 
     def __init__(self, server):
         self.server = server
 
+    '''
+    Handler funciton for /getinfo
+    '''
     def get(self):
         engine = self.server.getEngine()
         infoResponse = engine.getInfo()

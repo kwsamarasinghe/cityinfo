@@ -1,3 +1,7 @@
+'''
+AgentResponse class represents the response from each agent
+'''
+
 class AgentResponse:
 
     def __init__(self, type, source, data):
