@@ -18,7 +18,7 @@ class TestDataAgents(unittest.TestCase):
     def test_exchangeagent_fetchdata(self):
         exchangeRateAgent = ExchangeRateAgent(TestDataAgents.exchangeRateAPIURL)
         response = exchangeRateAgent.fetchData()
-        self.assertEqual(response, 200)
+        self.assertIsNotNone(response.data)
 
     def test_weather_construction(self):
         self.weatherAgent = WeatherAgent(TestDataAgents.weatherAPIURL)
@@ -26,7 +26,7 @@ class TestDataAgents(unittest.TestCase):
     def test_weatheragent_fetchdata(self):
         weatherAgent = WeatherAgent(TestDataAgents.weatherAPIURL)
         response = weatherAgent.fetchData()
-        self.assertEqual(response, 200)
+        self.assertIsNotNone(response.data)
 
     def test_newsagent_construction(self):
         newsAgent = NEWSAgent(TestDataAgents.newsAPIURL)
@@ -34,4 +34,4 @@ class TestDataAgents(unittest.TestCase):
     def test_newsagent_fetchdata(self):
         newsAgent = NEWSAgent(TestDataAgents.newsAPIURL)
         response = newsAgent.fetchData()
-        self.assertEqual(response, 200)
+        self.assertIsNotNone(response)
