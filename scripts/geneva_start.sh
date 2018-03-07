@@ -1,2 +1,2 @@
 export PYTHONPATH=src/
-python src/server/server.py /home/kasun/py-dev/cityinfo/config/geneva_cityinfo_config.xml
+python src/server/server.py config/geneva_cityinfo_config.xml
