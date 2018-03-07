@@ -6,7 +6,10 @@ from dataagents.exchange_rate_agent import ExchangeRateAgent
 from dataagents.weather_agent import WeatherAgent
 from dataagents.news_agent import NEWSAgent
 
-#This class is the main component, which calls the relevant services and composes the info
+'''
+This class is the main component, which calls the relevant services and composes the info
+TODO: implement the asynchronous execution of agents
+'''
 class Engine:
 
     def __init__(self, dataAgentProperties):
