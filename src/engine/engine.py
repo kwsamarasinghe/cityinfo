@@ -34,6 +34,9 @@ class Engine:
             agent = self.loadAgent(name, url)
             self.dataAgents.append(agent)
 
+        #data buffer
+        buffer = []
+
     def loadAgent(self, name, url):
         if(name == 'exchangeRateAgent'):
             agent = ExchangeRateAgent(url)
@@ -62,3 +65,6 @@ class Engine:
     #returns the updates
     def getInfoUpdate(self):
         return None
+
+    #Puts the data in the buffer
+    def handleResponse():
